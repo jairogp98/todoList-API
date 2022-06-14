@@ -1,6 +1,12 @@
-import os
+from dotenv import dotenv_values
+
 
 class Config:
 
-    SECRET_KEY= os.environ.get("SECRET_KEY")
-    FLASK_ENV = os.environ.get("FLASK_ENV")
+    env = dotenv_values('.env')
+    
+    SECRET_KEY = env['SECRET_KEY']
+    FLASK_ENV = env['FLASK_ENV']
+    FLASK_DEBUG=env['FLASK_DEBUG']
+    SQLALCHEMY_DATABASE_URI = env['SQLALCHEMY_DATABASE_URI']
+    SQLALCHEMY_TRACK_MODIFICATIONS = env['SQLALCHEMY_TRACK_MODIFICATIONS']

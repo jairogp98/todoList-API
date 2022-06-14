@@ -3,13 +3,14 @@ from flask import jsonify
 from flask_restx import Resource
 from flask import request
 from . import ns
+from .business import Business
 
-@ns.route('/')
+
+@ns.route("/")
 class Users(Resource):
 
     def get(self):
-        return "GET"
+        return Business.get_users()
 
     def post(self):
-        name = request.json['name']
-        return name
+        return Business.post_users(request)
