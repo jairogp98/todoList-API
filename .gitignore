@@ -114,6 +114,7 @@ env.bak/
 venv.bak/
 requirements.txt
 venvApi
+apiVenv
 
 # Spyder project settings
 .spyderproject

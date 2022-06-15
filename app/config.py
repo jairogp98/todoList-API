@@ -1,4 +1,5 @@
 from dotenv import dotenv_values
+from datetime import timedelta
 
 
 class Config:
@@ -10,3 +11,4 @@ class Config:
     FLASK_DEBUG=env['FLASK_DEBUG']
     SQLALCHEMY_DATABASE_URI = env['SQLALCHEMY_DATABASE_URI']
     SQLALCHEMY_TRACK_MODIFICATIONS = env['SQLALCHEMY_TRACK_MODIFICATIONS']
+    JWT_ACCESS_TOKEN_EXPIRES= False
