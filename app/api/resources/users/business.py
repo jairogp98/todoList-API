@@ -43,23 +43,17 @@ class Business:
         return Response('User created succesfully', 200)
 
     @staticmethod
-    def login_users(data):
+    def get_user_byId(id):
+        response = list()
         try:
-            email = data.json['email']
-            password = data.json['password'].encode('utf-8')
+            user = Users.query.filter_by(id =id).first()
 
-            exists = Users.query.filter_by(email = email).first()
-
-            if exists:
-                pswd = exists.password.encode('utf-8')
-                if bcrypt.checkpw(password, pswd):
-                    return "Succesfully login!"
-                else:
-                    return "The password is incorrect, please try again."
-                
-                
+            if user:
+                response.append({'id':user.id,'name':user.name, 'lastname':user.lastname})
             else:
-                return Response ("Couldn't found an user registered with that email.", 406)
+                return Response ("Id user not found", 406)
 
         except Exception as e:
             return Response (f"ERROR: {e}", 500)
+
+        return response
