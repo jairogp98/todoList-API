@@ -1,7 +1,6 @@
 from flask import Flask, Response, jsonify
 from app.database.db import db
 from app.database.models.users import Users
-import json
 import bcrypt
 class Business:
 

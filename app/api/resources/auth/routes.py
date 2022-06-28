@@ -7,13 +7,19 @@ from .business import Business
 
 
 @ns.route("/")
-class Auth(Resource):
+class Login(Resource):
 
     def post(self):
         return Business.login(request)
 
+@ns.route("/logout")
+class Logout(Resource):
+
+    def delete(self):
+        return Business.logout()
+
 @ns.route("/refresh")
-class Auth(Resource):
+class Refresh(Resource):
 
     def post(self):
         return Business.refresh()
