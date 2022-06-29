@@ -1,7 +1,9 @@
+from flask_restx import marshal
 from flask import Flask, Response, jsonify
 from app.database.db import db
 from app.database.models.users import Users
 import bcrypt
+from .dto import UserDto
 class Business:
 
     @staticmethod
@@ -9,23 +11,20 @@ class Business:
         response = list()
         try:
             users = Users.query.all()
-            
-            for user in users:
-                response.append({'id':user.id,'name':user.name, 'lastname':user.lastname})
         except Exception as e:
             return Response (f"ERROR: {e}", 500)
 
-        return response
+        return users
 
     @staticmethod
-    def post_users(data):
+    def post_users(data: dict):
         try:
-            name = data.json['name']
-            lastname = data.json['lastname']
-            email = data.json['email']
-            password = data.json['password'].encode('utf-8')
+            name = data['name']
+            lastname = data['lastname']
+            email = data['email']
+            password = data['password'].encode('utf-8')
             hashed_password = bcrypt.hashpw(password, bcrypt.gensalt())
-            active = data.json['active']
+            active = data['active']
 
             exists = Users.query.filter_by(email = email).first()
 
@@ -36,23 +35,20 @@ class Business:
             db.session.add(new_user)
             db.session.commit()
 
+            return marshal(new_user, UserDto.get_users), 200
+
         except Exception as e:
             return Response (f"ERROR: {e}", 500)
 
-        return Response('User created succesfully', 200)
 
     @staticmethod
     def get_user_byId(id):
-        response = list()
         try:
             user = Users.query.filter_by(id =id).first()
-
-            if user:
-                response.append({'id':user.id,'name':user.name, 'lastname':user.lastname})
+            if user is not None:
+                return marshal(user, UserDto.get_users), 200
             else:
-                return Response ("Id user not found", 406)
+                return Response ("Id user not found", 204)
 
         except Exception as e:
             return Response (f"ERROR: {e}", 500)
-
-        return response

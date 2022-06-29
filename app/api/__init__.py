@@ -1,5 +1,5 @@
 from flask import Blueprint
-from flask_restx import Api, Namespace
+from flask_restx import Api
 from .resources import namespaces
 
 bp_api = Blueprint("api", "__name__", url_prefix="/api")
