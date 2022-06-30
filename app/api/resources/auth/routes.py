@@ -4,11 +4,11 @@ from flask_restx import Resource
 from flask import request
 from . import ns
 from .business import Business
-
+from .dto import AuthDto
 
 @ns.route("/")
 class Login(Resource):
-
+    @ns.expect(AuthDto.post_auth)
     def post(self):
         return Business.login(request)
 
@@ -18,6 +18,7 @@ class Logout(Resource):
     def delete(self):
         return Business.logout()
 
+@ns.doc(security=['jwt'])
 @ns.route("/refresh")
 class Refresh(Resource):
 

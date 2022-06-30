@@ -38,7 +38,7 @@ class Business():
                 if bcrypt.checkpw(password, hash):
                     access_token = create_access_token(identity=user.email)
                     refresh_token = create_refresh_token(identity=user.email)
-                    return make_response(jsonify(access_token=access_token, refresh_token = refresh_token), 200)
+                    return make_response(jsonify(access_token=access_token, refresh_token = refresh_token, user_id = user.id), 200)
             else:
                 return Response("User not found", 406)
         except Exception as e:

@@ -2,11 +2,11 @@ from flask_restx import Resource
 from flask import request
 from . import ns
 from .business import Business
-from flask_jwt_extended import get_jwt_identity, jwt_required
+from flask_jwt_extended import jwt_required
 from ..auth.business import token_is_revoked
 from .dto import UserDto
 
-
+@ns.doc(security=['jwt'])
 @ns.route("/")
 class Users(Resource):
     @ns.marshal_with(UserDto.get_users)
@@ -21,6 +21,22 @@ class Users(Resource):
     def post(self):
         return Business.post_users(ns.payload)
 
+    @ns.expect(UserDto.put_users)
+    @jwt_required()
+    @token_is_revoked
+    def put(self):
+        return Business.put_users(ns.payload)
+        
+
+@ns.doc(security=['jwt'])
+@ns.route("/deactivate/<id>")
+class UserById(Resource):
+    @jwt_required()
+    @token_is_revoked
+    def patch(self, id):
+        return Business.patch_user_deactivate(id)
+
+@ns.doc(security=['jwt'])
 @ns.route("/<id>")
 class UserById(Resource):
     @jwt_required()

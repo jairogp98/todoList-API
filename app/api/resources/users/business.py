@@ -8,9 +8,8 @@ class Business:
 
     @staticmethod
     def get_users():
-        response = list()
         try:
-            users = Users.query.all()
+            users = Users.query.order_by(Users.id.asc()).all()
         except Exception as e:
             return Response (f"ERROR: {e}", 500)
 
@@ -48,7 +47,43 @@ class Business:
             if user is not None:
                 return marshal(user, UserDto.get_users), 200
             else:
-                return Response ("Id user not found", 204)
+                return Response ("Id user not found", 200)
+
+        except Exception as e:
+            return Response (f"ERROR: {e}", 500)
+
+    @staticmethod
+    def put_users(data:dict):
+        try:
+            user = Users.query.filter_by(id = data['id']).first()
+
+            if user is not None:
+                for key, value in data.items():
+                    if (value is not None):
+                        setattr(user, key, value)
+            else:
+                return Response ("User not found", 200)
+            db.session.commit()
+
+            updated_user = Users.query.filter_by(id = data['id']).first()
+
+            return marshal(updated_user, UserDto.get_users), 200
+
+        except Exception as e:
+            return Response (f"ERROR: {e}", 500)
+
+    @staticmethod
+    def patch_user_deactivate(id):
+        try:
+            user = Users.query.filter_by(id = id).first()
+
+            if user is not None:
+                setattr(user, "active", 0)
+            else:
+                return Response ("User not found", 200)
+            db.session.commit()
+
+            return Response (f"User {user.email} has been succesfully deactivate.",200)
 
         except Exception as e:
             return Response (f"ERROR: {e}", 500)
