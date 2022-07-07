@@ -1,0 +1,8 @@
+flask
+black
+flask_restx
+flask_sqlalchemy
+dotenv
+psycopg2
+bcrypt
+Flask-Migrate
