@@ -15,7 +15,7 @@ def token_is_revoked(func):
     def wrapper(*args, **kwargs):
         jti = get_jwt()["jti"]
 
-        token = RevokedTokens.query.filter_by(jti = jti).scalar()
+        token = RevokedTokens.query.filter_by(jti = jti).first()
         if token is not None:
             return Response("This token was revoked.", 401)
         else:

@@ -16,8 +16,6 @@ class Users(Resource):
         return Business.get_users()
 
     @ns.expect(UserDto.post_users)
-    @jwt_required()
-    @token_is_revoked
     def post(self):
         return Business.post_users(ns.payload)
 
@@ -30,7 +28,7 @@ class Users(Resource):
 
 @ns.doc(security=['jwt'])
 @ns.route("/deactivate/<id>")
-class UserById(Resource):
+class DeactivateUser(Resource):
     @jwt_required()
     @token_is_revoked
     def patch(self, id):
@@ -42,4 +40,4 @@ class UserById(Resource):
     @jwt_required()
     @token_is_revoked
     def get(self, id):
-        return Business.get_user_byId(id)
+        return Business.get_user_by_id(id)

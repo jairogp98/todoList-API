@@ -41,13 +41,13 @@ class Business:
 
 
     @staticmethod
-    def get_user_byId(id):
+    def get_user_by_id(id):
         try:
             user = Users.query.filter_by(id =id).first()
             if user is not None:
                 return marshal(user, UserDto.get_users), 200
             else:
-                return Response ("Id user not found", 200)
+                return Response ("Id user not found", 404)
 
         except Exception as e:
             return Response (f"ERROR: {e}", 500)
@@ -62,7 +62,7 @@ class Business:
                     if (value is not None):
                         setattr(user, key, value)
             else:
-                return Response ("User not found", 200)
+                return Response ("User not found", 404)
             db.session.commit()
 
             updated_user = Users.query.filter_by(id = data['id']).first()
