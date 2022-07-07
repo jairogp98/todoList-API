@@ -4,12 +4,19 @@ A base flask blueprint for any API RESTful to be expanded. Includes an auth reso
 Libraries used:
 
 flask
+
 black
+
 flask_restx
+
 flask_sqlalchemy
+
 dotenv
+
 psycopg2
+
 bcrypt
+
 Flask-Migrate
 
-You could install these from the requirements.txt with pip. I implemented it with Pyhthon 3.9.6
+You could install these from the requirements.txt with pip. I implemented it with Python 3.9.6
