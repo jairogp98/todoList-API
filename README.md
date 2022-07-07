@@ -1,5 +1,5 @@
-# flask-blueprint-base
-A base flask blueprint for any API RESTful to be expanded. Includes an auth resource and a users resource with a couple of funcionalities.
+# TodoList-API
+A basic to-do list RESTful API implemented with Python-Flask, SQLAlchemy and documented with Swagger.
 
 Libraries used:
 

@@ -6,11 +6,11 @@ from datetime import datetime, timedelta, timezone
 class Users (db.Model):
 
     id = db.Column(db.Integer, primary_key =True)
-    name = db.Column(db.String(100))
-    lastname = db.Column(db.String(100))
-    email = db.Column(db.String(100))
-    password = db.Column(db.String(100))
-    active = db.Column(db.Boolean)
+    name = db.Column(db.String(100), nullable = False)
+    lastname = db.Column(db.String(100), nullable = False)
+    email = db.Column(db.String(100), nullable = False)
+    password = db.Column(db.String(100), nullable = False)
+    active = db.Column(db.Boolean , nullable = False)
 
     def __init__(self, name, lastname, email, password, active):
         self.name = name
