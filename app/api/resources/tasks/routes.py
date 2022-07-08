@@ -13,4 +13,23 @@ class Tasks(Resource):
     @jwt_required()
     @token_is_revoked
     def post(self):
+        """Create a new task"""
         return Business.post_task(ns.payload)
+
+    @ns.expect(TaskDto.put_task)
+    @jwt_required()
+    @token_is_revoked
+    def put(self):
+        return Business.put_task(ns.payload)
+
+
+
+@ns.doc(security=['jwt'])
+@ns.route("/<user_id>")
+class TasksByUser(Resource):
+
+    @jwt_required()
+    @token_is_revoked
+    def get(self, user_id):
+        """Getting tasks by user id"""
+        return Business.get_tasks_by_user(user_id)

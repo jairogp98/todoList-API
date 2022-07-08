@@ -11,11 +11,11 @@ class Login(Resource):
     @ns.expect(AuthDto.post_auth)
     def post(self):
         return Business.login(request)
-
+@ns.doc(security=['jwt'])
 @ns.route("/logout")
 class Logout(Resource):
 
-    def delete(self):
+    def post(self):
         return Business.logout()
 
 @ns.doc(security=['jwt'])

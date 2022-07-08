@@ -24,7 +24,7 @@ def test_auth_logout(client):
     headers = {
         'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NzIwOTEwNSwianRpIjoiZWVmMmZhZGItZTcwMi00ZWI2LWE2YzktZDhiNzhkMWU3NDZlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImdvbWV6amFpcm8xNEBnbWFpbC5jb20iLCJuYmYiOjE2NTcyMDkxMDUsImV4cCI6MTY1NzIxMDMwNX0.efY2ogZRD1rsGJuvWUVCud7UddNyigeBOa3gQYwSznA'
     }
-    response = client.delete(("/api/auth/logout"), headers=headers)
+    response = client.post(("/api/auth/logout"), headers=headers)
 
     assert response.status_code == 200 or response.status_code == 500 #I can accept a 500 because the token expires.
 
