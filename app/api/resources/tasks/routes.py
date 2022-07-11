@@ -53,6 +53,7 @@ class TaskById(Resource):
 
 @ns.route("/validity/<user_id>")
 class TaskById(Resource):
+    #Getting the tasks about to expire or expired
     @ns.response(200, 'Success',TaskDto.get_task)
     @ns.doc(security=['jwt'], description = 'Get the tasks that are expired or about to expire')
     @jwt_required()
