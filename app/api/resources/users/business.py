@@ -80,7 +80,7 @@ class Business:
             if user is not None:
                 setattr(user, "active", 0)
             else:
-                return Response ("User not found", 200)
+                return Response ("User not found", 404)
             db.session.commit()
 
             return Response (f"User {user.email} has been succesfully deactivate.",200)

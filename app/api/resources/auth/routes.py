@@ -8,19 +8,20 @@ from .dto import AuthDto
 
 @ns.route("/")
 class Login(Resource):
+    @ns.doc(description = 'Login with valid credentials to get a JWT token')
     @ns.expect(AuthDto.post_auth)
     def post(self):
         return Business.login(request)
-@ns.doc(security=['jwt'])
+
 @ns.route("/logout")
 class Logout(Resource):
-
+    @ns.doc(security=['jwt'], description = 'Logout the user by destroying the current token')
     def post(self):
         return Business.logout()
 
-@ns.doc(security=['jwt'])
+
 @ns.route("/refresh")
 class Refresh(Resource):
-
+    @ns.doc(security=['jwt'], description = 'Refresh the current JWT token')
     def post(self):
         return Business.refresh()

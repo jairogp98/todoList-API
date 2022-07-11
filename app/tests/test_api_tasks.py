@@ -3,7 +3,7 @@ def test_task_post(client, jwt_token):
     """
         GIVEN a json payload with data
         WHEN wants to create a new task
-        THEN validate if task could be created or exists
+        THEN create the task
     """
     headers = {
         'Content-Type': 'application/json',
@@ -33,14 +33,14 @@ def test_task_get_by_user(client, jwt_token):
         'Authorization': f'Bearer {jwt_token}',
     }
 
-    response = client.get(("/api/tasks/4"), headers=headers)
+    response = client.get(("/api/tasks/byUser/4"), headers=headers)
     assert response.status_code == 200
 
 def test_task_put(client, jwt_token):
     """
         GIVEN a json payload with data
-        WHEN wants to create a new task
-        THEN validate if task could be created or exists
+        WHEN wants to update an existing task
+        THEN update the task or the task doesn't exist
     """
     headers = {
         'Content-Type': 'application/json',
@@ -56,4 +56,46 @@ def test_task_put(client, jwt_token):
     }
 
     response = client.put(("/api/tasks/"), data=json.dumps(payload), headers=headers)
+    assert response.status_code == 200
+
+def test_task_patch(client, jwt_token):
+    """
+        GIVEN a task ID
+        WHEN wants to delete the task
+        THEN deactivate the specified task
+    """
+    headers = {
+        'Content-Type': 'application/json',
+        'Authorization': f'Bearer {jwt_token}'
+    }
+
+    response = client.patch(("/api/tasks/byTask/5"), headers=headers)
+    assert response.status_code == 200
+
+def test_task_get_by_id(client, jwt_token):
+    """
+        GIVEN a task ID
+        WHEN the EP get called
+        THEN get the data of that specific task
+    """
+
+    headers = {
+        'Authorization': f'Bearer {jwt_token}',
+    }
+
+    response = client.get(("/api/tasks/byTask/4"), headers=headers)
+    assert response.status_code == 200
+
+def test_task_get_expired_tasks(client, jwt_token):
+    """
+        GIVEN a user ID
+        WHEN the EP get called
+        THEN get the expired o to expire tasks
+    """
+
+    headers = {
+        'Authorization': f'Bearer {jwt_token}',
+    }
+
+    response = client.get(("/api/tasks/validity/4"), headers=headers)
     assert response.status_code == 200
