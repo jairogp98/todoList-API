@@ -20,3 +20,5 @@ bcrypt
 Flask-Migrate
 
 You could install these from the requirements.txt with pip. I implemented it with Python 3.9.6
+
+Try the API here: https://todo-jayggo-api.herokuapp.com/api/swagger
