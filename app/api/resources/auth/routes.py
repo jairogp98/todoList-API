@@ -8,7 +8,7 @@ from .dto import AuthDto
 
 @ns.route("/")
 class Login(Resource):
-    @ns.doc(description = 'Login with valid credentials to get a JWT token')
+    @ns.doc(description = 'Login with valid credentials to get a JWT token. | You could use email: test@test.com password: test |')
     @ns.expect(AuthDto.post_auth)
     def post(self):
         return Business.login(request)
